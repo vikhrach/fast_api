@@ -23,7 +23,7 @@ jobs:
           poetry run flake8 --max-line-length=120
       - name: Run app
         run: |
-          poetry run python main.py
+          nohup poetry run python main.py &
       - name: Run tests
         run: |
          poetry run pytest .
