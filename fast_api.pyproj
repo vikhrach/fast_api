@@ -20,7 +20,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="badminton_model.py" />
+    <Compile Include="deps.py" />
     <Compile Include="main.py" />
+    <Compile Include="models.py" />
+    <Compile Include="security.py" />
     <Compile Include="test.py" />
   </ItemGroup>
   <ItemGroup>

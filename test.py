@@ -2,8 +2,9 @@
 import requests
 
 
-def test_server():
-    requests.get("http://127.0.0.1:8000/sayhello")
+@pytest.fixture
+def get_user():
+    return {"username": "johndoe", "password": "secret"}
 
 
 @pytest.mark.parametrize(
@@ -13,6 +14,9 @@ def test_server():
         {"outlook": "sunny", "temperature": "hot", "humidity": "normal", "wind": "weak"},
     ],
 )
-def test_true(input):
-    res = requests.post("http://127.0.0.1:8000/playability", json=input)
-    assert res.json()["playability"]
+def test_true(input, get_user):
+    login_response = requests.post("http://localhost:8000/token", data=get_user)
+    token = login_response.json()["access_token"]
+    headers = {"Authorization": f"Bearer {token}"}
+    response = requests.post("http://localhost:8000/playability", json=input, headers=headers)
+    assert response.json()["playability"]
